@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Simple Contrastive Graph Clustering | Hello</title><meta name="author" content="LQY"><meta name="copyright" content="LQY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="论文标题Simple Contrastive Graph Clustering论文作者、链接作者：Liu, Yue and Yang, Xihong and Zhou, Sihang and Liu, Xinwang链接：https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2205.07865 Introduction逻辑（论文动机&amp;现有工作存在的问题）图学习——深度图聚类，主要分为：生成式，对抗">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simple Contrastive Graph Clustering">
+<meta property="og:url" content="http://example.com/20081.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="论文标题Simple Contrastive Graph Clustering论文作者、链接作者：Liu, Yue and Yang, Xihong and Zhou, Sihang and Liu, Xinwang链接：https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2205.07865 Introduction逻辑（论文动机&amp;现有工作存在的问题）图学习——深度图聚类，主要分为：生成式，对抗">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/favicon.png">
+<meta property="article:published_time" content="2023-05-16T07:55:11.000Z">
+<meta property="article:modified_time" content="2023-05-16T08:02:21.923Z">
+<meta property="article:author" content="LQY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/20081.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Simple Contrastive Graph Clustering',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-16 16:02:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hello"><span class="site-name">Hello</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Simple Contrastive Graph Clustering</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T07:55:11.000Z" title="Created 2023-05-16 15:55:11">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-16T08:02:21.923Z" title="Updated 2023-05-16 16:02:21">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">图对比学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Simple Contrastive Graph Clustering"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>论文标题<br>Simple Contrastive Graph Clustering<br>论文作者、链接<br>作者：Liu, Yue and Yang, Xihong and Zhou, Sihang and Liu, Xinwang<br>链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.07865">https://arxiv.org/abs/2205.07865</a></p>
+<h2 id="Introduction逻辑（论文动机-amp-现有工作存在的问题）"><a href="#Introduction逻辑（论文动机-amp-现有工作存在的问题）" class="headerlink" title="Introduction逻辑（论文动机&amp;现有工作存在的问题）"></a>Introduction逻辑（论文动机&amp;现有工作存在的问题）</h2><p>图学习——深度图聚类，主要分为：生成式，对抗式和对比式——这些方法通过聚类导向的损失函数来使得生成的样本拟合预先生成的聚类分布，于是初始化的簇中心对模型的影响很大——最近，由于对比学习的兴起，设计了更一致和有区别的对比损失函数来取代聚类引导的损失函数用于网络训练——对比学习的损失函数消除了初始化簇中心所带来的人工误差——然而，复杂的数据增广以及图卷积的耗时比较大，使得这些方法的效率比较低下。</p>
+<p>为了解决上述问题，本文提出了(Simple Contrastive Graph Clustering ，SCGC)方法，从网络架构、数据增广、目标函数的方面来改进聚类能力。网络架构方面，使用孪生网络，由MLP构成。网络训练前独立进行邻域信息聚合过程。这个过程中过滤了高频的噪音，提高了模型的效果以及训练效率。对于数据增广，抛弃了构建相同节点的不同视图，改为使用两个参数不共享的孪生编码器，并且用高斯噪音对节点嵌入进行扰动。本文还是设计了一个面向邻居的对比目标函数，迫使跨视图相似性矩阵去逼近自环邻接矩阵，如此一来使得模型可以保持跨视图一致性。</p>
+<h2 id="论文核心创新点"><a href="#论文核心创新点" class="headerlink" title="论文核心创新点"></a>论文核心创新点</h2><p><strong>提出了一个简单有效的对比深度图聚类模型</strong></p>
+<p><strong>新的数据增广方法</strong></p>
+<p><strong>新的面向邻居的对比目标函数</strong></p>
+<h2 id="论文方法"><a href="#论文方法" class="headerlink" title="论文方法"></a>论文方法</h2><p>标识与问题定义</p>
+<img src="..\local_file\mark-img\image-20221229122217128.png" alt="image-20221229122217128" style="zoom: 50%;" />
+
+<img src="..\local_file\mark-img\image-20221229122724050.png" alt="image-20221229122724050" style="zoom: 50%;" />
+
+<h2 id="全局框架"><a href="#全局框架" class="headerlink" title="全局框架"></a>全局框架</h2><img src="..\local_file\mark-img\image-20221229122825350.png" alt="image-20221229122825350" style="zoom: 50%;" />
+
+<p> <strong>低通降噪操作Low-pass Denoising Operation</strong><br>近期工作证明了，拉普拉斯滤波器约图卷积的效果相同。于是，本文引入了一个低通的降噪操作来指导邻居信息的聚合，作为一个独立的预处理方法，可以非常高效的将高频噪音进行滤除。</p>
+<p>引入一个图拉普拉斯滤波器，即<img src="..\local_file\mark-img\image-20221229122939804.png" alt="image-20221229122939804" style="zoom: 50%;" />，其中<img src="..\local_file\mark-img\image-20221229123008575.png" alt="image-20221229123008575" style="zoom:50%;" />代表对称的归一化图拉普拉斯矩阵。将层的图拉普拉斯滤波器堆叠起来，公式如下</p>
+<img src="..\local_file\mark-img\image-20221229123029364.png" alt="image-20221229123029364" style="zoom: 50%;" />
+
+
+
+<p> 其中<img src="..\local_file\mark-img\image-20221229123126552.png" alt="image-20221229123126552" style="zoom:50%;" />表示平滑的特征矩阵，<img src="..\local_file\mark-img\image-20221229123141785.png" alt="image-20221229123141785" style="zoom:50%;" />代表堆叠了层的图拉普拉斯滤波器，可以滤除结点特征中的高频噪音。</p>
+<p><strong>结构对比模块</strong><br>本文设计了结构对比模块(Structure Contrastive Module ，SCM)来保持跨视图间的结构一致性，由此来增加网络的辨别能力。</p>
+<p>首先对平滑的特征矩阵<img src="..\local_file\mark-img\image-20221229123250362.png" alt="image-20221229123250362" style="zoom:50%;" />进行编码，通过参数不共享的MLP编码器，并且用归一化对得到的结点嵌入进行归一化，公式如下：</p>
+<img src="..\local_file\mark-img\image-20221229123217738.png" alt="image-20221229123217738" style="zoom: 50%;" />
+
+
+
+<p> 其中<img src="..\local_file\mark-img\image-20221229123321077.png" alt="image-20221229123321077" style="zoom:50%;" />，<img src="..\local_file\mark-img\image-20221229123339375.png" alt="image-20221229123339375" style="zoom:50%;" />表示学习到的结点嵌入的两个增广的视图。因为两个MLP编码器是不参数共享的，所以可以得到不同的语义信息。</p>
+<p>进一步保持两个视图之间的不同性，简单地对其添加高斯噪音，即</p>
+<img src="..\local_file\mark-img\image-20221229123418004.png" alt="image-20221229123418004" style="zoom: 50%;" />
+
+
+
+<p> 其中<img src="..\local_file\mark-img\image-20221229123506059.png" alt="image-20221229123506059" style="zoom:50%;" />是从高斯分布<img src="..\local_file\mark-img\image-20221229123522088.png" alt="image-20221229123522088" style="zoom:50%;" />中采样的。总的来说，就是通过设计两个参数不共享的编码器构建两个增广视图<img src="..\local_file\mark-img\image-20221229123321077.png" alt="image-20221229123321077" style="zoom:50%;" />，<img src="..\local_file\mark-img\image-20221229123339375.png" alt="image-20221229123339375" style="zoom:50%;" />，并且之间对视图添加噪音而不是使用一些更复杂的操作，如此可以提高训练效率。此外，最近的研究表明，复杂的数据在图上的增强，如边的增加、边的丢弃和图的扩散可能会导致语义漂移。</p>
+<p> 随后设计了一个源于邻居的对比损失来保持跨视图的结构一致性。计算跨视图的相似性矩阵<img src="..\local_file\mark-img\image-20221229123613819.png" alt="image-20221229123613819" style="zoom:50%;" />公式如下：</p>
+<img src="..\local_file\mark-img\image-20221229123629096.png" alt="image-20221229123629096" style="zoom: 50%;" />
+
+
+
+<p> 其中<img src="..\local_file\mark-img\image-20221229123715136.png" alt="image-20221229123715136" style="zoom:50%;" />代表第i个结点的第一个视图嵌入和第j个结点嵌入的第二个视图，的余弦相似性。这迫使跨视图样本的相似性矩阵S与自环邻接矩阵<img src="..\local_file\mark-img\image-20221229123815608.png" alt="image-20221229123815608" style="zoom:50%;" />相等，公式如下：</p>
+<img src="..\local_file\mark-img\image-20221229123829997.png" alt="image-20221229123829997" style="zoom:50%;" />
+
+
+
+<p> 其中<img src="..\local_file\mark-img\image-20221229123856530.png" alt="image-20221229123856530" style="zoom:50%;" />代表<img src="..\local_file\mark-img\image-20221229123916784.png" alt="image-20221229123916784" style="zoom:50%;" />，<img src="..\local_file\mark-img\image-20221229123930836.png" alt="image-20221229123930836" style="zoom:50%;" />代表<img src="..\local_file\mark-img\image-20221229123946303.png" alt="image-20221229123946303" style="zoom:50%;" />。将同一个结点的邻居结点的跨视图对视为正样本对，同时将不相邻的结点视为负样本对。将正样本对聚集起来，将负样本对推远。在公式中，第一项迫使结点在跨两个不同视图的情况下，与邻居结点相似，同时第二项使得结点与其非邻居结点相似性减小。这种面向邻居的对比目标函数通过保持跨视图结构的一致性，增强了网络的判别能力，从而提高了聚类性能</p>
+<p>融合以及聚类<br>将一个结点的两个增广视图嵌入进行一个线性的融合，公式如下：</p>
+<img src="..\local_file\mark-img\image-20221229124012014.png" alt="image-20221229124012014" style="zoom:50%;" />
+
+
+
+<p> 其中，表示面向聚类的节点嵌入的融合结果。然后对直接进行K-means得到聚类结果。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">LQY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/20081.html">http://example.com/20081.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/favicon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/23160.html" title="GPT-2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">GPT-2</div></div></a></div><div class="next-post pull-right"><a href="/54971.html" title="Contrastive Multi-View Representation Learning on Graphs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Contrastive Multi-View Representation Learning on Graphs</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LQY</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Rady3"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction%E9%80%BB%E8%BE%91%EF%BC%88%E8%AE%BA%E6%96%87%E5%8A%A8%E6%9C%BA-amp-%E7%8E%B0%E6%9C%89%E5%B7%A5%E4%BD%9C%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">Introduction逻辑（论文动机&amp;现有工作存在的问题）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E6%A0%B8%E5%BF%83%E5%88%9B%E6%96%B0%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">论文核心创新点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">论文方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%A1%86%E6%9E%B6"><span class="toc-number">4.</span> <span class="toc-text">全局框架</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/35647.html" title="skip-gram">skip-gram</a><time datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/12559.html" title="vascl">vascl</a><time datetime="2023-05-16T08:07:26.000Z" title="Created 2023-05-16 16:07:26">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/26110.html" title="Transform">Transform</a><time datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/55294.html" title="T5">T5</a><time datetime="2023-05-16T08:07:02.000Z" title="Created 2023-05-16 16:07:02">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/41822.html" title="simcse">simcse</a><time datetime="2023-05-16T08:06:50.000Z" title="Created 2023-05-16 16:06:50">2023-05-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LQY</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

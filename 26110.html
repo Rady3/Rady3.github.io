@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Transform | Hello</title><meta name="author" content="LQY"><meta name="copyright" content="LQY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Transform学习笔记一、什么是transformertransformer是目前最流行的特征抽取器，可以不负责的说已经取代了RNN（当然也不能完全取代 ）不过话说为什么可以取代RNN呢？因为RNN有人们不能容忍的缺点呗（等于没说），那就得看看RNN有什么缺点了：\1. RNN不能并行：RNN是依赖前一时刻输出的隐层状态，这就导致RNN必须一步一步走完，而不能并行，结果就会很慢。\2. RNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Transform">
+<meta property="og:url" content="http://example.com/26110.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="Transform学习笔记一、什么是transformertransformer是目前最流行的特征抽取器，可以不负责的说已经取代了RNN（当然也不能完全取代 ）不过话说为什么可以取代RNN呢？因为RNN有人们不能容忍的缺点呗（等于没说），那就得看看RNN有什么缺点了：\1. RNN不能并行：RNN是依赖前一时刻输出的隐层状态，这就导致RNN必须一步一步走完，而不能并行，结果就会很慢。\2. RNN">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/favicon.png">
+<meta property="article:published_time" content="2023-05-16T08:07:15.000Z">
+<meta property="article:modified_time" content="2023-05-16T08:25:04.951Z">
+<meta property="article:author" content="LQY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/26110.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Transform',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-16 16:25:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hello"><span class="site-name">Hello</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Transform</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-16T08:25:04.951Z" title="Updated 2023-05-16 16:25:04">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/NLP/">NLP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Transform"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="Transform学习笔记"><a href="#Transform学习笔记" class="headerlink" title="Transform学习笔记"></a>Transform学习笔记</h1><p><strong>一、什么是transformer</strong><br>transformer是目前最流行的特征抽取器，可以不负责的说已经取代了RNN（当然也不能完全取代 ）<del>不过话说为什么可以取代RNN呢？因为RNN有人们不能容忍的缺点呗（等于没说</del>），那就得看看RNN有什么缺点了：<br>\1. RNN不能并行：RNN是依赖前一时刻输出的隐层状态，这就导致RNN必须一步一步走完，而不能并行，结果就会很慢。<br>\2. RNN词间距过长：词间距是两个词相隔的距离，当距离过长可能会导致梯度消失或梯度爆炸等问题。<br>而transformer很好的弥补了这两个缺点：transformer并行速度极快，而且transformer每个词之间的词间距都是1。因此奠定了transformer是目前最流行的特征抽取器。<br>-——————————————————————————————<br><strong>二、远观transformer</strong><br>transformer是采用encoder-decoder架构。论文<a href="https://link.zhihu.com/?target=https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>中给出encoder层是6层encoder堆叠在一起的，decoder层是6层decoder堆叠在一起。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-a639cb711842a2803ede8494734bd415_720w.jpg" alt="img"></p>
+<p>分解成一个encoder和一个decoder的话如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-abc2ff315f76b23523915cd7536733a0_720w.jpg" alt="img"></p>
+<p>可以看到一个encoder是由Self-Attention（自注意力机制层）和Feed Forward（前向神经网络层）组成，而decoder比encoder多了一层Encoder-Decoder Attention，该层目的是接收encoder层的结果。值得注意的是，decoder与encoder的Self-Attention并不完全相同，decoder采用的是Masked Self-Attention（掩码自注意力），这个后面会详细说明。<br><strong>三、拆解transformer</strong><br>transformer整体细节图如下（以一个encoder和一个decoder为例）：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-5a5ead1a08aeab5b775131bd58765468_720w.jpg" alt="img"></p>
+<p>这张图乍一看不太懂，没关系，你仔细看看~<br>发现……<br>还不懂~<br>没关系，下面我将其拆分成五部分：输入 + 中间部分(Multi-Head Attention + FeedForward + Add &amp; Normalize)+ 输出，逐一进行说明~~~<br><strong>1. 输入层</strong><br>encoder的输入层和decoder的输入层是一样的结构，都是token embedding（词向量）+ positional embedding（位置向量），得到最终的输入向量。之所以引入positional embedding主要是解决单单使用token embedding（类似于词袋子），并没有词序的概念的问题。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-5d36d1f96335cb044436068e922d0471_720w.jpg" alt="img"></p>
+<p>positional embedding的计算公式如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-98c7951ca51474b2f3bc143a4ecbe928_720w.jpg" alt="img"></p>
+<p>这里，pos表示单词的位置，i是指单词的维度。可以看出，在偶数位置，使用正弦编码，在奇数位置，使用余弦编码。</p>
+<p><strong>2. Multi-Head Attention</strong></p>
+<p><strong>2.1. Self-Attention</strong></p>
+<p>在说Multi-Head Attention（多头注意力机制）之前，先来了解一下Self-Attention（想象成单头注意力机制）~<br>Self-Attention是解决什么问题呢？比如：”The animal didn’t cross the street because it was too tired.” 对于这个句子来说，我如何知道”it”指代的是”animal”呢？这就是Self-Attention需要做的事——将”it”和”animal”关联起来。接下来我们详细讲一下它们如何关联起来：<br>首先，我们需要了解三个向量：<br>a. 查询向量（Query 向量，简写：q）：<br>Score(其它词相对于当前词的注意力得分) &#x3D; Query(当前单词) ✖️ Key(所有单词)。<br>注意：我们只关心目前正在处理的单词的查询向量。<br>b. 键向量（Key 向量，简写：k）：<br>序列中每个单词的标签。<br>c. 值向量（Value 向量，简写：v）：<br>值向量是单词真正的表征，当得到注意力得分Score后，使用值向量进行加权求和得到能代表当前位置上下文的向量。<br>然后，我们看一下如何利用这三个向量实现自注意力机制的：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-b032ef7f3d6e10687b9b2952e9324f5b_720w.jpg" alt="img"></p>
+<ul>
+<li>通过第1步【token embedding + positional embedding】，得到输入向量x</li>
+<li>通过输入向量x得到q、k、v三个向量</li>
+<li>得到当前词与所有词的注意力得分Score（112和96）</li>
+<li>为了梯度稳定，除以<img src="https://www.zhihu.com/equation?tex=%5Csqrt%7Bd_k%7D" alt="[公式]">（<img src="https://www.zhihu.com/equation?tex=%7Bd_k%7D" alt="[公式]">当前为64）（112&#x2F;8&#x3D;14；96&#x2F;8&#x3D;12）</li>
+<li>进行softmax激活函数</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-8326c99e482ba0c693b36afed584092f_720w.png" alt="img"></p>
+<ul>
+<li>将softmax激活函数的结果<strong>点乘</strong>值向量，结果仍为向量（v1,v2）</li>
+<li>将上一步的所有结果向量相加得到最后的向量z</li>
+</ul>
+<p>其中，第二小步骤是通过向量x的矩阵计算方式得到q、k、v三个向量的：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0074e08697cd59f8ca17930352717cf0_720w.jpg" alt="img"></p>
+<p>以Q(q)向量为例：向量x(1<em>512)乘以一个权重矩阵w(512</em>64)，得到q向量(1*64)。而w矩阵初始化时可以随机取值，通过不断的优化会将参数w更新到一个最优值。<br>以上步骤可以抽象出Self-Attention的计算公式：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-228809146a59a1cbe2065f7731bc2057_720w.jpg" alt="img"></p>
+<p><strong>2.2. Masked Self-Attention</strong><br>Masked Self-Attention（掩码自注意力机制）与Self-Attention（自注意力机制）就差在Masked（掩码）上。<br>Masked是什么意思呢？就是相当于盖住你当前关注的词的后面所有词，我只关心前面出现的词，而后面的词我不关注，因为我要生成后面的词。如下图所示，对于当前词，我只用它及它之前的所有词进行计算，后面不管。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-794e5c753e4aba3fdccfb54814ccae7f_720w.jpg" alt="img"></p>
+<p>那为什么要使用Masked Self-Attention呢？<br>因为在做解码（decoder）操作时，我们需要预测当前词的下一个词是什么，如果后面的词都能看见了，还预测什么呢？这也是为什么bert采用双向语言模型时需要盖住一些词的原因啦（当然，这个以后随bert会再详细介绍，这里就是简单提一下 ~）所以啊，我们不能看见后面的词，这样才能保证我是公平的预测后面的词（并没有作弊提前记住它 ），因此Masked Self-Attention是必要的。<br><strong>2.3. Multi-Head Attention</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-fb1e2496eaa407d80951660c824855a4_720w.jpg" alt="img"></p>
+<p>多头自注意力机制，就是一个输入向量x得到多组q、k、v，从而得到多个z，将多个z拼接成一个大矩阵，乘以权重矩阵wo(如图~我的&lt;插入公式&gt;为什么不好使 )，得到最后的结果向量z。</p>
+<p><strong>问题一：为什么要分成多头处理？</strong><br>回答：将一个单词映射在高维空间中，对于不同维空间都可以学到不同的特征。通过所有维空间得到一个向量，不如将其拆分成多个维度，通过多个维度得到多个向量，从而捕捉到更多的信息。论文(<a href="https://link.zhihu.com/?target=https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>)作者就将512维向量拆成8份，每64维得到一个向量，即上图我们看到的0~7的q&#x2F;k&#x2F;v，这样就可以让特征更丰富些。<br><strong>问题二：多组q、k、v是如何计算的，如何得到多个z的？</strong><br>回答：上图中是针对一个输入向量x列举了多组q、k、v，而如果再来一个输入向量R，又得到多组q、k、v，那这多组对多组是如何计算的呢？按我的理解，计算方式如下图所示，相当于每一份（共8份）单独计算得到z。以z0为例：x的Q0和x的K0相乘 ➕ x的Q0和R的K0相乘，就得到了向量x对应的词的注意力得分，然后按照上面的步骤继续除以<img src="https://www.zhihu.com/equation?tex=%5Csqrt%7Bd_k%7D" alt="[公式]">，softmax等相同操作，最后得到z0。其他份相同计算方式，就得到多个z.</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cec19928a0581cfba2f48210f13e66b4_720w.jpg" alt="img"></p>
+<p><strong>问题三：如何将多个z整合成一个？</strong><br>回答：如下图所示，将多个z拼接在一起，行程一个长矩阵，然后与权重矩阵w计算得到最后的z。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-838a5580bc27e08c137b4f69d699dbaf_720w.jpg" alt="img"></p>
+<p><strong>3. Feed Forward</strong><br>Feed Forward Neural Network（前馈神经网络）包含两层，第一层是ReLU激活函数，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-19552498db736d0c3f631ca02c0c78b9_720w.jpg" alt="img"></p>
+<p>第二层是一个线性激活函数，表示为：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-70457f214e44657fd6718775b3e51720_720w.jpg" alt="img"></p>
+<p>值得一提的是，是在Feed Forward这部分实现了并行操作。我们以encoder层为例，将encoder细化分解一下，得到下图所示：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-4e6443779804da3c3566a8e259435603_720w.jpg" alt="img"></p>
+<p>大家注意: Self-Attention画成一个大长条，而Feed Forward却画成了两个小长条，为什么不同样直接画成一个大长条呢？<br>这是因为我们在计算Self-Attention时用到了上下文词的信息，所以直接画成了一个大长条，而Feed Forward处理时是对每个词的输出分别单独计算的，因此也就实现了并行的方式。</p>
+<p><strong>4. Add &amp; Normalize</strong><br>我们在讲Feed Forward时给出了一个encoder层的细节图，从中我们可以看到在Self-Attention和Feed Forward之后都接了一个Add &amp; Normalize（残差连接&amp;归一化）层。<br>残差连接就是将 <strong>输入向量加上输出向量</strong> 后传给下一层。例如：假设一个输入向量x，经过一个网络结构，得到输出向量f(x)，即：x-&gt;f(x)，这时加上残差连接，相当于在输出向量中加入输入向量，输出结构变为f(x)+x<strong>。</strong>这样就避免了梯度消失的问题，因为对x求偏导时，总会有一个常数项1。<br>因此，Add &amp; Normalize层的实质是，输出向量经过残差连接与输入向量相加然后通过LayerNorm进行归一化，将最后结果向量传给下一层，如下图所示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-f873299109146f766fe26b4927960d9c_720w.jpg" alt="img"></p>
+<p>\5. 输出层<br>从输入词得到向量，又将向量进行一系列折腾后，我如何再将向量转换成输出的词呢？其实就是通过linear层和softmax层实现的。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2e0d34442772713f5c9010e560a90cac_720w.jpg" alt="img"></p>
+<p>比如我们得到最后的向量（512维），我们需要对应到我们词库中，比如我们词库有10000个词，那就需要将512维转换成10000维，这就用到了linear，然后转换成的10000维，我取其中哪个词呢，这就用到了softmax，通过它我们知道哪个位置上的概率最大，从而得到对应位置上的词，解决了我们从向量到词的转换（上图中很好的说明了这一过程）。</p>
+<p><strong>四、近看transformer</strong></p>
+<p>了解了transformer各部分的内容及其作用后，我们再来从encoder层和decoder层的角度近看一下transformer。下图展示了两层encoder（encoder #1，encoder #2）和一层decoder（decoder #1）的细节图。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-fe8b17d63b15406e604ec8a0cb297dcf_720w.jpg" alt="img"></p>
+<p><strong>1. encoder层</strong></p>
+<ul>
+<li>每个词向量（token embedding）➕ 对应的位置向量（positional embedding）&#x3D;&gt; 每个词的输入向量x</li>
+<li>输入向量通过多头自注意力机制（Multi-Head Attention）得到的向量与输入向量进行残差连接与归一化（Add &amp; Normalize）向量向量</li>
+<li>将归一化得到的每个词的向量继续做前向神经网络（Feed Forward）</li>
+<li>最后再进行一次残差连接与归一化（Add &amp; Normalize）</li>
+</ul>
+<p>此时一层encoder层结束，将得到的结果向量当成输入向量继续传给第二层的encoder，依次传递计算，直到6层encoder计算结束，将最后结果向量保留，之后会传给decoder层计算。</p>
+<p><strong>2. decoder层</strong></p>
+<ul>
+<li>当前词及之前词的词向量（token embedding）➕ 对应的位置向量（positional embedding）&#x3D;&gt; 当前词及之前词的输入向量x</li>
+<li>输入向量x同样经过多头自注意力机制（Multi-Head Attention）处理和残差连接与归一化</li>
+<li>这一步的Encoder-Decoder Attention，其中k、v是来自于encoder层的结果，而q是本身上一层的结果。</li>
+<li>接下来几步和上面encoder的步骤是一样的，最后得到结果向量，作为decoder第二层的输入向量。然后依次进行以上步骤，直到6层decoder全部计算结束。</li>
+</ul>
+<p>再啰嗦一句，encoder是对于所有输入词进行的计算，而decoder是当前词及之前词进行计算的，然后将计算结果再返回到输入词中，继续进行。<br>下面我们来看个动图，能更好的理解decoder层是如何运行的~<br>首先我们先来看一下decoder层输出第一个词的动图：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c6067b33cafa93f92a884d7ce8ac427f_720w.jpg" alt="img"></p>
+<p>需要说明的一点，其实decoder这端在输出第一个词的时候，有一个句子前缀<s>，所以是相当于通过标记标记<s>预测到了第一个输出词。<br>然后，我们再来看一下decoder层输出后面词的动图：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-f234ea0b61cc6c155581533add4396c9_720w.jpg" alt="img"></p>
+<p>将第一输出词当成输入词继续预测，直到预测完整个句子。<br>五、总结<br>本篇文章详细记述了transformer的整个运行过程，其主要核心就是Self-Attention机制，而其在encoder层和decoder层又是不同实现的。其主要原因是encoder层是相当于学习到输入词的信息，所以需要将所有的输入词都包含进来计算，而decoder层相当于预测下一个词，因而只需要当前词及前面的词，而将后面的词都盖住。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">LQY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/26110.html">http://example.com/26110.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/favicon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/12559.html" title="vascl"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">vascl</div></div></a></div><div class="next-post pull-right"><a href="/55294.html" title="T5"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">T5</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LQY</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Rady3"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Transform%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">Transform学习笔记</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/35647.html" title="skip-gram">skip-gram</a><time datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/12559.html" title="vascl">vascl</a><time datetime="2023-05-16T08:07:26.000Z" title="Created 2023-05-16 16:07:26">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/26110.html" title="Transform">Transform</a><time datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/55294.html" title="T5">T5</a><time datetime="2023-05-16T08:07:02.000Z" title="Created 2023-05-16 16:07:02">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/41822.html" title="simcse">simcse</a><time datetime="2023-05-16T08:06:50.000Z" title="Created 2023-05-16 16:06:50">2023-05-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LQY</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

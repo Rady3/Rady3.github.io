@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>skip-gram | Hello</title><meta name="author" content="LQY"><meta name="copyright" content="LQY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="目前最常用的词向量学习方法有三个：   skip-gram [1] CBOW[2] GLOVE[3]    Skip-Gram和CBOW（Continuous Bag-of-Words：连续词袋模型）出自2013年Tomas mikolov等人攥写的论文“Efficient Estimation of Word Representations in Vector Space”3中。因此，skip-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="skip-gram">
+<meta property="og:url" content="http://example.com/35647.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="目前最常用的词向量学习方法有三个：   skip-gram [1] CBOW[2] GLOVE[3]    Skip-Gram和CBOW（Continuous Bag-of-Words：连续词袋模型）出自2013年Tomas mikolov等人攥写的论文“Efficient Estimation of Word Representations in Vector Space”3中。因此，skip-">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/favicon.png">
+<meta property="article:published_time" content="2023-05-16T08:08:09.000Z">
+<meta property="article:modified_time" content="2023-05-16T08:25:04.952Z">
+<meta property="article:author" content="LQY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/35647.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'skip-gram',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-05-16 16:25:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hello"><span class="site-name">Hello</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">skip-gram</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-16T08:25:04.952Z" title="Updated 2023-05-16 16:25:04">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/NLP/">NLP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="skip-gram"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>目前最常用的词向量学习方法有三个：</p>
+<ol>
+<li><ol>
+<li><strong>skip-gram [<a href="https://link.zhihu.com/?target=https://gitbook.cn/writing/editor/5c7cf46262141d1a9da05161%23fn:1">1</a>]</strong></li>
+<li><strong>CBOW[<a href="https://link.zhihu.com/?target=https://gitbook.cn/writing/editor/5c7cf46262141d1a9da05161%23fn:1">2</a>]</strong></li>
+<li><strong>GLOVE[3]</strong></li>
+</ol>
+</li>
+</ol>
+<p><strong>Skip-Gram和CBOW（Continuous Bag-of-Words：连续词袋模型）出自2013年Tomas mikolov等人攥写的论文“Efficient Estimation of Word Representations in Vector Space”<a href="https://link.zhihu.com/?target=https://gitbook.cn/writing/editor/5c7cf46262141d1a9da05161%23fn:1">3</a>中。</strong>因此，skip-gram和CBOW是一对孪生兄弟，<strong>其原理和实现过程高度相似，所以只要我们掌握清楚一个，另外一个也就迎刃而解。</strong>本节，我们将学习skip-gram和CBOW模型训练获得词向量的方法，并弄清它们的差异。</p>
+<p>\1. skip-gram和CBOW的基本理念<br><strong>skip-gram和CBOW的基本理念是构造一个假的学习任务，我们并不关注这个任务的输出结果如何，而是关注它的中间产物。举个例子，我们和小伙伴约定去打羽毛球，我们并不是很在意和小伙伴打球谁输谁赢，只要我们都靠运动锻炼了身体就好。这个例子中比赛的输赢就是假的学习目标，而通过这个过程锻炼好的身体就是我们的实际目标——词向量</strong><br>我们已经明确skip-gram和CBOW的实际学习目标是要获得词向量，那么我们该如何构造假的学习任务（Fake Task）起到完成实际学习目标的效果呢？我们先以skip-gram为例， 构造Fake Task如下：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0e1acabfe3a443c2faa665641d5537a8_720w.jpg" alt="img"></p>
+<p><strong>Skip-Gram Fake Task：以这个句子中的某个词作为训练输入（比如orange，通常把这样的词叫做中心词(center word)），以这个词周围的词（比如juice，也叫做上下文词(context word)）作为训练标签，通过输入和标签训练模型，训练一个输入中心词预测上下文词的模型。</strong><br>而CBOW模型则与之相反，它的Fake Task是通过输入上下文词来预测中心词，其原理是一样的。<br>大题知晓了skip-gram的Fake Task是如何构造之后，我们还需要理解为什么这种假学习目标的构造方式可以让我们实现真实目标（即为什么和小伙伴比赛羽毛球可以锻炼我们的身体）。</p>
+<p>2 为什么这个Fake Task可以得到词向量？<br>首先我们要对这个假学习目标加上二个合理假设以辅助理解。</p>
+<ol>
+<li>orange和apple都是水果，所以是一个相似度很高的词语。</li>
+<li>orange和apple都经常和juice一起出现，即我们的待训练语料库中有很多orange juice和apple juice。</li>
+</ol>
+<p>所以我们拟得到的许多训练样本可能是这个样子的。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-876415f61c58f6208184a6a5ca9e7884_720w.jpg" alt="img"></p>
+<p><strong>Input(Center Word)Output(Context word)<strong>orangejuiceapplejuiceapplejuice…………orangejuice当我们输入一个Input到模型中去时，模型会根据它的参数将我们的输入Input映射成输出Output。（若是以神经网络模型为例，这样的模型参数通常是通过梯度下降学习得来的）</strong>所以我们是否可以认为，由于我们输入了大量的Input是orange和apple，而它们的Output都是juice（实际还有其它，比如可能有fruit），即我们输入了不同的东西，却得到了相同的东西，所以在模型习得的参数空间中，针对orange和apple的参数变成了高度相似的</strong> 。而这个词的对应模型参数，就是这个词的向量表示，这些参数的集合，就是我们的词向量。</p>
+<p>\3. 实现细节<br>接下来我们将以一个句子来剖析一下skip-gram的实现细节：<br>首先我们定义以下句子：<br><strong>I would like a glass of orange juice.</strong><br>接着我们选定第一个词作为中心词(center word):<br><strong>[ I ] would like a glass of orange juice.</strong><br>为了找到它的上下文词，我们引入一个window_size参数，并将其设定为2，这代表这个中心词左右2个单词将作为它的上下文词(context word)。这时我们就获得了2个训练样本，输入为单词”I”, 输出标签为”would”和”like”。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-365b1e9da968242f38d8fe03dd0ec43b_720w.png" alt="img"></p>
+<p>接下来我们只要滑动这个中心词窗口，就可以获得越来越多且不同的训练样本。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-514a2e9c173fbb3bc5ce7eb67197825d_720w.jpg" alt="img"></p>
+<p><strong>这样我们的神经网络模型在遍历整个语料库的时候（比如维基百科文本）将看到寻多个(center: orange, context: juice)样本（相对于(orange, Ak47)样本来说），同理也会看到许多个(apple, juice)样本。</strong><br><strong>对应第2小点的内容，这样使得模型不管看到”orange”还是看到”apple”都要预测出”juice”，就”逼”着它让它学习让它认为这两个单词是高度相似的，即我们最终得到的”orange”和”apple”词向量是高度相似的。</strong><br>而CBOW则与之相反，用的是上下文词来预测中心词。但是与skip-gram有一点差别的是，它获得的训练样本并非是直观以为的(context: juice, center: orange)。而是将窗口内的所有上下文词放在一起来预测中心词，即(context: [glass, of, juice], center: orange),即：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-7a9d78d1dadc2314f23ce63986fea750_720w.jpg" alt="img"></p>
+<p>这细微的差别带来的却是模型效果的大相径庭，我们将在下面看到。</p>
+<p>\4. Skip-Gram模型和CBOW模型有和异同？<br>我们先说相同点，Skip-Gram和CBOW模型都是构造Fake Task，利用句子中的词去预测其它词从而获得单词的词向量。<br>而它们的不同点来源于上文提到的小差别。CBOW的一个训练样本是(context: [glass, of, juice], center: orange)，它对周围词的调整是统一的，CBOW的训练次数跟整个文本的词数几乎相等（每次训练滑动一次中心词窗格获得一个训练样本，而Skip-Gram滑动一次中心词窗格获得多个训练样本）。<br><strong>由此可看出，Skip-Gram的训练次数是要多于CBOW的，训练时间要比CBOW长。</strong><br>Skip-Gram训练时间长但也有它的好处。在skip-gram中，每个词在作为中心词的时候，都要进行K次（window_size * 2）的训练和调整。因此当训练语料库较小，或语料中多生僻词时， 这种多次调整会使得词向量更加精准（毕竟训练了多次）。<br>而在CBOW中，单词的词向量是和周围的词一起平均调整的（比如上述中”glass”、”of”、”juice”是一起调整的），代表若是存在生僻词，它并没有得到因材施教和专门的训练，而是和周围的词一起进行。<br>举一个通俗的例子。<br>Skip-Gram模型相当于是“家教学习模式”，即一个学生请了多个家教对其进行一对一辅导，表现为每个输入的中心词（学生）从多个上下文词标签（家教老师）那里获得知识。而CBOW模型则相当于“大班教学模式”，即多个学生在一个大班老师那里上课学习，表现为每个输入的多个上下文词（多个学生）从中心词标签（大班老师）那里获得知识。<br>因此家教学习模式耗时更久，但是学生得到了一对一照顾，学习效果更好。而大班教学耗时短，但是老师对学生一视同仁，学生的学习效果相对较差。</p>
+<hr>
+<p>Skip-Gram与CBOW模型总结：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-2067caf4a7d5a20f7a296ea0cc74a1e5_720w.jpg" alt="img"></p>
+<p><strong>Skip-GramCBOW</strong>单词训练输入一个中心词多个上下文词单词训练标签一个上下文词一个中心词训练复杂度高低训练时间长短训练效果好稍差生僻词和专有词训练效果好稍差</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">LQY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/35647.html">http://example.com/35647.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/favicon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/12559.html" title="vascl"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">vascl</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LQY</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Rady3"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/35647.html" title="skip-gram">skip-gram</a><time datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/12559.html" title="vascl">vascl</a><time datetime="2023-05-16T08:07:26.000Z" title="Created 2023-05-16 16:07:26">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/26110.html" title="Transform">Transform</a><time datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/55294.html" title="T5">T5</a><time datetime="2023-05-16T08:07:02.000Z" title="Created 2023-05-16 16:07:02">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/41822.html" title="simcse">simcse</a><time datetime="2023-05-16T08:06:50.000Z" title="Created 2023-05-16 16:06:50">2023-05-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LQY</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

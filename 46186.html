@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MDERANK | Hello</title><meta name="author" content="LQY"><meta name="copyright" content="LQY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="关键词提取 (Keyphrase Extraction，KPE) 任务可以自动提取文档中能够概括核心内容的短语，有利于下游信息检索和 NLP 任务。 当前，由于对文档进行标注需要耗费大量资源且缺乏大规模的关键词提取数据集，无监督的关键词提取在实际应用中更为广泛。 无监督关键词抽取的state of the art（SOTA）方法是对候选词和文档标识之间的相似度进行排序来选择关键词。但由于候选词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MDERANK">
+<meta property="og:url" content="http://example.com/46186.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="关键词提取 (Keyphrase Extraction，KPE) 任务可以自动提取文档中能够概括核心内容的短语，有利于下游信息检索和 NLP 任务。 当前，由于对文档进行标注需要耗费大量资源且缺乏大规模的关键词提取数据集，无监督的关键词提取在实际应用中更为广泛。 无监督关键词抽取的state of the art（SOTA）方法是对候选词和文档标识之间的相似度进行排序来选择关键词。但由于候选词">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/favicon.png">
+<meta property="article:published_time" content="2023-05-16T08:06:28.000Z">
+<meta property="article:modified_time" content="2023-05-16T11:05:17.353Z">
+<meta property="article:author" content="LQY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/46186.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MDERANK',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-16 19:05:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hello"><span class="site-name">Hello</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MDERANK</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T08:06:28.000Z" title="Created 2023-05-16 16:06:28">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-16T11:05:17.353Z" title="Updated 2023-05-16 19:05:17">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/NLP/">NLP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MDERANK"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><img src="..\local_file\mark-img\image-20220721130508990.png" alt="image-20221011152741329" style="zoom:80%;" />
+
+<p><strong>关键词提取</strong> (Keyphrase Extraction，KPE) 任务可以自动提取文档中能够概括核心内容的短语，有利于下游信息检索和 NLP 任务。</p>
+<p>当前，由于对文档进行标注需要耗费大量资源且缺乏大规模的关键词提取数据集，无监督的关键词提取在实际应用中更为广泛。</p>
+<p>无监督关键词抽取的state of the art（SOTA）方法是对<strong>候选词和文档标识之间的相似度进行排序来选择关键词</strong>。但由于候选词和文档序列长度之间的差异导致了关键短语候选和文档的表征不匹配，导致以往的方法在长文档上的性能不佳，无法充分利用预训练模型的上下文信息对短语构建表征。</p>
+<p>在这项工作中，作者提出了一种新的基于无监督嵌入的关键词提取方法，即 MDERank。<strong>MDERank 通过利用掩码生成覆盖了候选词的文章</strong>，利用预训练模型得到掩码文档及其原始文档的表征，对其进行相似度计算，利用相似度分数对候选词进行排名来同时解决这两个问题。</p>
+<p>此外，我们还利用<strong>自监督对比学习方法</strong>提出一种新颖的<strong>面向 KPE 的 BERT (KPEBERT) 模型</strong>进一步提升了关键词提取的性能，该方法比普通 BERT 更兼容 MDERank。我们在六个 KPE 基准上进行实验，综合评估结果表明提出的 MDERank 显著优于最先进的无监督 KPE 方法，F1@15平均提高了1.80。与此同时，MDERank 进一步受益于 KPEBERT，总体上比 SOTA SIFRank 平均提高了3.53 F1@15。</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h3 id="关键词构建"><a href="#关键词构建" class="headerlink" title="关键词构建"></a>关键词构建</h3><p><strong>(一) 基于掩码的无监督关键词提取（MDERank）****1.问题定义：</strong>给定一个文档 <em>d</em> &#x3D; {<em>W</em>1*, W<em>2</em>, …, W<em>n}，</em>d* ∈ <em>D</em>，<em>D</em> 是数据集。根据对文章进行 POS 标注然后依据给定的规则（ &lt; <em>NN*.* |<em>JJ</em> &gt; * &lt; *NN*.* &gt;，大部分为名词和形容词的组合）生成候选词集合 <em>C</em> &#x3D; {<em>c</em>1, …, <em>c</em>i, …, <em>c</em>m}, <em>m ≤ n</em>, 每个候选词 <em>c</em>i 包含一到多个词语, 即 <em>c</em>i &#x3D; {<em>c</em>i1, …, <em>c</em>i</em>l*}。关键词抽取的目的是从候选集合 <em>C</em> 中选取 <em>K</em> 个词作为关键词, 且 <em>K</em> <em>≤ m</em><em>.</em></p>
+<h3 id="现有方法存在的问题："><a href="#现有方法存在的问题：" class="headerlink" title="现有方法存在的问题："></a>现有方法存在的问题：</h3><p>1）先前的基于表征进行关键词提取的方法（Phrase-Document-based Method，PD-Method) [1,2], 大都采用计算文本表征与候选词表征之间的相似度，然后依据相似度分数对候选词进行排序，相似度高的候选会被选取为关键词。然而这类方法忽视了文档长度与候选短语<strong>长度不匹配</strong>的问题，导致在进行关键词选取的时候存在偏向选取长关键词的问题。如Table 1所示，这个例子表明PD-Method偏向于较长的候选词，而我们提出的新方法MDERank没有这个问题。</p>
+<img src="..\local_file\mark-img\image-20220721131238887.png" alt="image-20220721131238887" style="zoom:67%;" />
+
+
+
+<p>2）PD-Method 使用的候选词表征，由于<strong>缺乏上下文信息</strong>，导致表征的质量不高，从而影响了后续的相似度计算，降低了关键词抽取的准确度。</p>
+<p><strong>3.我们提出的方法：</strong></p>
+<p>关键词是指能代表文本主旨的词或短语，因此在对整个文本的语义而言至关重要。如果一个文本的关键词被覆盖，则被覆盖的文本与原始的文本的语义差距会变大。基于这个想法，我们提出了基于掩码的无监督关键词提取技术 MDERank，通过比较覆盖住候选词的文本与原始文本的相似度，从而对候选词集合进行打分，实现文本的关键词提取，<strong>由原先的短语-文本层面的相似度计算通过掩码转换为文本-文本层面</strong>，从而解决了长度不匹配的问题。与此同时，我们避免了使用短语的表征，而是使用掩码后的文本替代候选词，由此可以获得充分利用了上下文信息的文本表征。具体实现方法如 Figure 1所示：</p>
+<img src="..\local_file\mark-img\image-20220721131126614.png" alt="image-20220721131126614" style="zoom: 33%;" />
+
+<p>Figure 1：MDERank的算法流程图</p>
+<ul>
+<li>我们利用之前提到的提取候选词的方法，对数据集中的每一篇文档都提取其对应的候选词集合。</li>
+<li>我们遍历每个文档对应的候选词集合，把每个候选词 <em>c</em>i 在文中出现的所有位置 [<em>p</em>1, <em>p</em>2, …, <em>p</em>t] 全部使用 [MASK] 替换。值得注意的是，经过分词后，一个候选词会有多个分词，我们替换的候选词的所有分词（Span Mask）。经过掩码后，我们可以获得每个候选词对应的掩码后的文本<em>dMci</em>。</li>
+<li>我们定义用于排序的 cosine similarity 为相似度分数 <em>f</em>(<em>c</em>i)，我们使用 BERT 对文本进行编码，使用 MaxPooling 获得文本表征 <em>E</em>(<em>d</em>) 和掩码后的文本表征 <em>E(dMci)</em> 从而计算 <em>f</em>(<em>c</em>i)。依据 MDERank 的定义，<em>f</em>(<em>c</em>i) 越高，<em>c</em>i 的排名越低，即被掩码后的文本损失的信息越多，掩码的候选词的重要性越高，这一点与 PD-method 相反，后者候选词的排名与 <em>f</em>(<em>c</em>i) 成正相关。</li>
+</ul>
+<p><strong>(二) 面向关键词提取的预训练模型（KPEBERT）</strong></p>
+<p>BERT[3] 及其诸多变种预训练模型 [4,5] 可以高效的对文本语义和结构进行编码，获得高质量的文本表征。但是现有的自监督模型<strong>没有显式的对关键词的重要性进行建模</strong>并且也<strong>没有对关键词之间的排序进行建模</strong>。因此在这篇论文中，我们提出了一种自监督学习方法来获得高质量的表征以提升 MDERank 对候选词的排序能力。</p>
+<p>我们定义掩码伪关键词的文本为正例（伪关键词由现有的无监督关键词提取方法产生），掩码伪非关键词的文本为负例，将原始文本作为锚点，利用 triplet loss 拉近正例与原始文本之间的距离，拉远负例与原始文本之间的距离，如公式和Figure 2所示：</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/b7ce21e9835b4148a7fd601c8cf5ea21.png" alt="图片.png"></p>
+<p>其中 λ 是一个用于平衡两个任务的超参数。</p>
+<p>在进行正例和负例采样时，我们设计了两种采样方法：</p>
+<p><strong>1.绝对采样：</strong>利用现有的无监督关键词提取方法，对每篇文章抽取得到关键词集合，将这些“关键词”作为正例对原始文章进行掩码。然后在剩下候选词（“非关键词”）中随机抽取作为负例。</p>
+<p><strong>2.相对采样：</strong>利用现有的无监督关键词提取方法，对每篇文章抽取得到 d 关键词集合，在关键词集合中，随机抽取两个“关键词”，其中排名靠前的一个作为正例，另一个则为负例，从而构建训练数据。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/76fd8f813b094a6c867bbed9d01d2238.png" alt="图片.png"></p>
+<h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p><strong>#01 关键词提取任务</strong></p>
+<p>我们比较了 MDERank 在6个基准数据集上的表现，其中Inspec，SemEval2010，Semeval2017 为短文本数据集，DUC2001 为中长文本数据集，NUS 和 Krapivin 为长文本数据集。同先前工作，我们采用了 F1@K（<em>K</em> ∈ {5, 10, 15}）作为评测指标。为了保证公平，我们对最后的结果进行了去重和 Stemming 操作。</p>
+<p>为了公平比较 EmbedRank 模型与 MDERank 模型，我们使用 BERT 模型来替换 EmbedRank 的 Sent2Vec，从而定义了 EmbedRank（BERT）。根据 Table 3 我们可以看到，<strong>MDERank(BERT) 超过了 EmbedRank(BERT)[1] 平****均</strong> <strong>F1@15</strong> <strong>2</strong><strong>.95</strong>。同时，它还超过了先前的最优模型 SIFRank[12] 平均 <strong>F1@15</strong> 1.80。MDERank 还受益于 KPEBERT 获得的高质量， MDERank(KPEBERT) 相较于 SIFRank 实现了平均 <strong>F1@15</strong> 3.53 的提升。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/8650b19acefa4e2e98fc2130529720d6.png" alt="图片.png"></p>
+<p>值得注意的是，在长文本数据集上，MDERank显著优越于先前的方法。</p>
+<p><strong>#02 对文本长度的分析实验</strong></p>
+<p>我们使用 EmbedRank(BERT) 作为 PD-method 的代表，设计了两个实验来研究文本长度对 PD-method 和 MEDRank 的影响。</p>
+<p>实验一，我们使用NUS数据集，通过对文本进行截断，获得128，256，512个词的文本作为输入，我们从 Table 5 中可以看到，随着文本长度的增加，PD-method 的性能逐渐下降，然而，MDERank 的性能受文本长度影响较小。</p>
+<p>实验二，我们使用长文本建模模型 BigBird[4] 来替换BERT模型，以探究更长文本输入对不同方法的影响。通过 Table 7 可以看到，PD-method 在更长文本的数据上表现不佳，远差于MDERank的性能。</p>
+<p>以上两个实验验证了<strong>MDERank在长文本关键词提取任务上的有效性</strong>。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/4d93dc3bff4049cd8b94c08268c1c62e.png" alt="图片.png"></p>
+<p><strong>#03 不同层和Pooling方法的分析实验</strong></p>
+<p>我们探究了使用了不同层和Pooling方法来获得文本表征对 PD-method 和 MDERank 的影响。根据表6所示，在不同的Pooling方法下，MDERank都随着层数的增长获得了一定性能的提升。然而在AvgPooling下，EmbedRank(BERT) 随着层数的增长性能急速下降。相较于AvgPooling，MaxPooling弱化了不同层之间的差异，因而 EmbedRank(BERT) 在MaxPooling下受层数变化影响较小。因此相较于 PD-Method，<strong>MDERank 更受益于强上下文语义表征</strong>。我们还比较了最优 EmbedRank（BERT）与MDERank 在6个数据集上的表现，平均 MDERank 比 EmbedRank（BERT）在F1@5，F1@10，F1@15上高3.7，1.8，1.6。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/f2b859232bc44a8b9e7a0b460b6944c6.png" alt="图片.png"></p>
+<p><strong>#04 不同无监督方法对KPEBERT的影响</strong></p>
+<p>我们探究了选取不同的无监督方法生成伪标签对 KPEBERT的 影响，如 Table 3 和 Table 8 所示，YAKE[6] 在6个基准数据集上平均表现不如 TextRank，但是在长文本数据集上性能优于 TextRank。使用了YAKE生成伪标签的 KPEBERT 效果优于 TextRank（Inspec较差，SemEval2017结果近似）。MDERank（KPEBERT）使用了YAKE在长短文本上的优越性能可以说明 KPEBERT 不仅保持了YAKE的稳定性能同时还对YAKE在短文本数据集低性能展现出了一定鲁棒性。</p>
+<p><img src="https://ucc.alicdn.com/pic/developer-ecology/365edae4fb344819ab6f73d595297170.png" alt="图片.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">LQY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/46186.html">http://example.com/46186.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/favicon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/54707.html" title="PGN"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">PGN</div></div></a></div><div class="next-post pull-right"><a href="/57376.html" title="Bert"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Bert</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LQY</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Rady3"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%E6%9E%84%E5%BB%BA"><span class="toc-number">1.0.1.</span> <span class="toc-text">关键词构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E6%9C%89%E6%96%B9%E6%B3%95%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.0.2.</span> <span class="toc-text">现有方法存在的问题：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">实验结果</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/35647.html" title="skip-gram">skip-gram</a><time datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/12559.html" title="vascl">vascl</a><time datetime="2023-05-16T08:07:26.000Z" title="Created 2023-05-16 16:07:26">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/26110.html" title="Transform">Transform</a><time datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/55294.html" title="T5">T5</a><time datetime="2023-05-16T08:07:02.000Z" title="Created 2023-05-16 16:07:02">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/41822.html" title="simcse">simcse</a><time datetime="2023-05-16T08:06:50.000Z" title="Created 2023-05-16 16:06:50">2023-05-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LQY</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

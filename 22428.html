@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SURGRL | Hello</title><meta name="author" content="LQY"><meta name="copyright" content="LQY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="论文标题：Simple Unsupervised Graph Representation Learning论文作者：Yujie Mo、Liang Peng、Jie Xu, Xiaoshuang Shi、Xiaofeng Zhu论文来源：2022 AAAI 1 Introduction　　任务驱动：解决对比学习效率低下的问题。【针对数据增强、判别器训练耗时】 　　本文工作：   如何构建锚点嵌入、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SURGRL">
+<meta property="og:url" content="http://example.com/22428.html">
+<meta property="og:site_name" content="Hello">
+<meta property="og:description" content="论文标题：Simple Unsupervised Graph Representation Learning论文作者：Yujie Mo、Liang Peng、Jie Xu, Xiaoshuang Shi、Xiaofeng Zhu论文来源：2022 AAAI 1 Introduction　　任务驱动：解决对比学习效率低下的问题。【针对数据增强、判别器训练耗时】 　　本文工作：   如何构建锚点嵌入、">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/img/favicon.png">
+<meta property="article:published_time" content="2023-05-16T07:44:20.000Z">
+<meta property="article:modified_time" content="2023-05-16T07:51:34.460Z">
+<meta property="article:author" content="LQY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/favicon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/22428.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SURGRL',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-16 15:51:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/transpancy.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Hello"><span class="site-name">Hello</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">SURGRL</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T07:44:20.000Z" title="Created 2023-05-16 15:44:20">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-16T07:51:34.460Z" title="Updated 2023-05-16 15:51:34">2023-05-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">图对比学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SURGRL"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>论文标题：Simple Unsupervised Graph Representation Learning<br>论文作者：Yujie Mo、Liang Peng、Jie Xu, Xiaoshuang Shi、Xiaofeng Zhu<br>论文来源：2022 AAAI</p>
+<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>　　<strong>任务驱动：</strong>解决对比学习效率低下的问题。【针对数据增强、判别器训练耗时】</p>
+<p>　　<strong>本文工作：</strong></p>
+<ul>
+<li><ul>
+<li>如何构建锚点嵌入、正嵌入、负嵌入；　　</li>
+<li>根据 Triplet loss 设计一种新损失函数；</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　<strong>本文对比学习思想：</strong>减小类内距离，增大类间距离。【类似聚类】</p>
+<p>　　<strong>研究现状</strong></p>
+<ul>
+<li><ul>
+<li><strong>无监督图表示学习（UGRL）中的对比学习</strong>：通常依赖于数据增强来生成输入内容（ input content）及其相关内容（related content），以实现 MI 最大化，从而导致训练过程的计算成本昂贵。</li>
+<li><strong>相关工作</strong><ul>
+<li>Deep Graph Infomax (DGI)最大化节点表示和图表示之间的互信息；</li>
+<li>Graphical Mutual Information (GMI)最大化输入图和输出图之间的互信息；</li>
+<li>GCA 通过各种数据增强，例如，属性掩蔽或边扰动，最大化两个视图每个节点之间的互信息；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>　　　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220324152330092-1381312973.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220324152330092-1381312973.png" alt="img"></a></p>
+<p>　　对比学习工作存在的问题：数据增强、高维嵌入表示、对比损失函数设计带来的训练时间长问题，有关方法对比如 Figure 1 所示。</p>
+<p>　　<strong>问题展开详述</strong>：</p>
+<ul>
+<li><ul>
+<li><strong>数据增强：</strong>GRACE 和 GCA 通过 remove edges 和 mask node 特性，以生成多个视图。因此，数据增强（包括视图生成和编码）的计算成本大约需要 20%-40% 的训练时间。　　 </li>
+<li><strong>高维嵌入：</strong>通过提高嵌入的维数来提高表示质量，从而增加了训练时间。部分方法对维度敏感，如 DGI 和 GMI 在 512 维空间上达到了它们最好的精度。　</li>
+<li><strong>目标函数设计为判别器</strong>：DGI 和 MVGRL 使用一个判别器来测量节点嵌入和图嵌入的一致性（判别器为双线性判别器加 Sigmoid），花费约 10%-30% 的训练时间。【DGI、GMI、MVGRL、GIC 的判别器为双线性判别器】</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-Method"><a href="#2-Method" class="headerlink" title="2 Method"></a>2 Method</h1><p>　　基于上述三个问题，本文提出 Simple Unsupervised Graph Representation Learning (SUGRL)，框架如 Figure 2 所示：</p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220324154920315-1202175429.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220324154920315-1202175429.png" alt="img"></a></p>
+<p>　　<strong>方法步骤概述：</strong></p>
+<ul>
+<li><ul>
+<li>首先使用一个多层感知器(MLP)在带语义信息（semantic information）的输入 XX 上生成 Anchor embedding ；　　</li>
+<li>接着基于 Graph structure AA 和 Semantic feature XX 使用 GCN 生成 Positive embedding。此外在 Anchor embedding 上通过 Neighbour sampling 生成另外一种 Positive embedding；</li>
+<li>然后在 Anchor embedding 上通过 Row shuffling 生成一种 Negative embedding；</li>
+<li>计算多重损失。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-1-Anchor-and-negative-embedding-generation"><a href="#2-1-Anchor-and-negative-embedding-generation" class="headerlink" title="2.1 Anchor and negative embedding generation"></a>2.1 Anchor and negative embedding generation</h2><p>　　Anchor 研究现状：大多将 node representation 和 graph summary 作为一个 Anchor 。</p>
+<p>　　比如 ：</p>
+<ul>
+<li><ul>
+<li>DGI and MVGRL treat the graph summary as anchors, which is first convolved by GCN and then summarized by a readout function.　　</li>
+<li>GRACE and GCA regard the node embedding generated in one view as anchors.</li>
+</ul>
+</li>
+</ul>
+<p>　　上述产生的问题：大多需要经过 GCN 的传播，比较耗费时间。</p>
+<p>　　<strong>Step1：</strong>本文生成锚嵌入（Amchor embedding）的方法是使用 MLP 作用在输入 XX 上，从而生成带语义信息的锚嵌入 。<br>$$<br>\mathbf{X}^{(l+1)}&#x3D;\text { Dropout }\left(\sigma\left(\mathbf{X}^{(l)} \mathbf{W}^{(l)}\right)\right)<br>$$</p>
+<p>$$<br>\mathbf{H}&#x3D;\mathbf{X}^{(l+1)} \mathbf{W}^{(l+1)}<br>$$</p>
+<p>　　关于生成负嵌入，比较流行的方法如 DGI、GIC、MVGRL 采用的策略是：从原始图中得到一个被破坏的图，然后用 GCN 获得负嵌入。</p>
+<p>　　<strong>Step2：</strong>本文生成负嵌入（Negative embedding）的方法是直接通过行打乱（row-shuffle） 去打乱锚嵌入。<br>$$<br>\mathbf{H}^{-}&#x3D;\operatorname{Shuffle}\left(\left[\mathbf{h}<em>{1}, \mathbf{h}</em>{2}, \ldots, \mathbf{h}_{N}\right]\right)<br>$$</p>
+<h2 id="2-2-Positive-embedding-generation"><a href="#2-2-Positive-embedding-generation" class="headerlink" title="2.2 Positive embedding generation"></a>2.2 Positive embedding generation</h2><p>　　现有的工作通常将结构信息 [ 数据增强后的视图为新的图结构 ] 视为正嵌入（Positive embedding），比如相关的工作有 DGI、MVGRL、GRACE、GCA、GIC 。</p>
+<p>　　比如：</p>
+<ul>
+<li><ul>
+<li>在 GCA 和 GRACE 中采用随机图数据增强；</li>
+<li>在 MVGRL 中的图扩散；</li>
+</ul>
+</li>
+</ul>
+<p>　　本文生成了两种正嵌入（Positive embedding ）：</p>
+<ul>
+<li><ul>
+<li>structural embeddings　　</li>
+<li>neighbor embeddings</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<h3 id="2-2-1-Structural-information"><a href="#2-2-1-Structural-information" class="headerlink" title="2.2.1 Structural information"></a>2.2.1 Structural information</h3><p>　　<strong>Step3：</strong>为了获取带图的结构信息正嵌入，本文采用了广泛使用的 GCN 作为基编码器。<br>$$<br>\mathbf{H}^{+^{(l+1)}}&#x3D;\sigma\left(\widehat{\mathbf{A}} \mathbf{H}^{+(l)} \mathbf{W}^{(l)}\right)<br>$$</p>
+<p>　　注意，本文生成锚嵌入的 MLP 是和 这里的 GCN 共享权重矩阵 WW 的。</p>
+<h3 id="2-2-2-Neighbor-information"><a href="#2-2-2-Neighbor-information" class="headerlink" title="2.2.2 Neighbor information"></a>2.2.2 Neighbor information</h3><p>　　<strong>Step4：</strong>为了得到具有邻居信息的 正嵌入，作者首先存储所有节点的邻居嵌入索引，然后对其进行抽样，然后计算样本的平均值。这样可以有效地获取节点的邻居信息：<br>$$<br>\tilde{\mathbf{h}}<em>{i}^{+}&#x3D;\frac{1}{m} \sum</em>{j&#x3D;1}^{m}\left{\mathbf{h}<em>{j} \mid v</em>{j} \in \mathcal{N}_{i}\right}<br>$$</p>
+<p>　　其中</p>
+<ul>
+<li><ul>
+<li>m 为采样邻居的个数；</li>
+<li>Ni 表示节点 vi 的一阶邻居（1-hop）集合；</li>
+</ul>
+</li>
+</ul>
+<p>　　总的来说，</p>
+<ul>
+<li><ul>
+<li>结构嵌入（structural embedding）关注的是所有邻居信息，从 GCN 信息传递公式 AXW 理解；　　</li>
+<li>邻居嵌入（neighbor embedding）分别的邻居的某一部分，通过采样部分邻居信息；</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　因此，他们从不同的角度解释样本，从而将它们放在一起考虑，可能获得它们的互补信息。</p>
+<h2 id="2-3-Multiplet-loss"><a href="#2-3-Multiplet-loss" class="headerlink" title="2.3 Multiplet loss"></a>2.3 Multiplet loss</h2><p>　　DGI、GMI、MVGRL、GIC 使用双线性层作为判别器来区分正、负样本对，非常耗时间，具体对比可以参考 Figure 6 。</p>
+<p>　　研究损失的目的：</p>
+<ul>
+<li><ul>
+<li>拉近类内距离，加大类间距离；</li>
+<li>减少泛化误差，减小泛化误差对 UGRL 来说也很重要，因为在训练过程中如果泛化误差小，可能会提高对比学习的泛化能力；</li>
+</ul>
+</li>
+</ul>
+<p>　　在 SUGRL中，本文以 Triplet loss 损失为基础，设计一个上限损失来避免使用除鉴别器。具体来说，每个样本的 Triplet loss 可以表示为：<br>$$<br>\alpha+d\left(\mathbf{h}, \mathbf{h}^{+}\right)&lt;d\left(\mathbf{h}, \mathbf{h}^{-}\right)<br>$$</p>
+<p>　　其中：</p>
+<ul>
+<li><ul>
+<li>d(.)d(.) 是相似度测量方法，如 ℓ2ℓ2 -norm distance；</li>
+<li>αα 是非负值，代表着 positive 和 negative embeddings 的 “安全距离” ；</li>
+</ul>
+</li>
+</ul>
+<p>　</p>
+<p>　　通过对所有负样本求和，Eq.6Eq.6 扩展为：<strong>【类间分析】</strong><br>$$<br>\mathcal{L}<em>{\text {triplet }}&#x3D;\frac{1}{k} \sum</em>{i&#x3D;1}^{k}\left{d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2}-d\left(\mathbf{h}, \mathbf{h}<em>{i}^{-}\right)^{2}+\alpha\right}</em>{+}<br>$$</p>
+<p>　　其中 </p>
+<ul>
+<li><ul>
+<li><p>$$<br>{\cdot}_{+}&#x3D;\max {\cdot, 0}<br>$$</p>
+</li>
+<li><p>kk 代表负样本数</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　为了增加类间差异，作者拉大正负样本之间的距离，作者在两种 Positive embedding （考虑 Structural information 和 Neighbor information）上执行以下操作：<br>$$<br>\begin{array}{l}<br>\mathcal{L}<em>{S}&#x3D;\frac{1}{k} \sum</em>{i&#x3D;1}^{k}\left{d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2}-d\left(\mathbf{h}, \mathbf{h}<em>{i}^{-}\right)^{2}+\alpha\right}</em>{+} \<br>\mathcal{L}<em>{N}&#x3D;\frac{1}{k} \sum</em>{j&#x3D;1}^{k}\left{d\left(\mathbf{h}, \widetilde{\mathbf{h}}^{+}\right)^{2}-d\left(\mathbf{h}, \mathbf{h}<em>{j}^{-}\right)^{2}+\alpha\right}</em>{+}<br>\end{array}<br>$$</p>
+<p>　　分析上式的两种情况：<br>$$<br>Case 1:  d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2} \geq d\left(\mathbf{h}, \tilde{\mathbf{h}}^{+}\right)^{2}<br>Case 2:  d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2}&lt;d\left(\mathbf{h}, \widetilde{\mathbf{h}}^{+}\right)^{2}<br>$$</p>
+<p>　　对于 Case 1，那么即使 Eq.9Eq.9 为 00 ，Eq.8Eq.8 也不可能小于 00 （非负）。此时，我们可以认为 LSLS 任然有效，LNLN 是无效的。因此，可以通过 Eq.8Eq.8 将锚点嵌入和负嵌入相推离，这样类间差异增大。与 Case 1 类似，Case 2 也可以扩大类间差异。</p>
+<p>　　基于以上分析，Case 1 或 Case 2 都可以增大类间距离。特别是，如果其中一种无效，另一种仍将有效地进一步扩大类间距离。因此，Eq.8Eq.8 和 Eq.9Eq.9 可以从结构嵌入和邻域嵌入中获得互补的信息，从而能够扩大类间距离。</p>
+<p>　　分析 Eq.7Eq.7：<strong>【类内分析】</strong></p>
+<p>　　Eq.7Eq.7 保证的是 ，<br>$$<br>d\left(\mathbf{h}, \mathbf{h}_{i}^{-}\right)^{2}-d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2} \geq \alpha<br>$$<br>这保证了类间距离，但忽略了类内距离（即 Anchor embedding 和 Positive embedding 的距离 ）。如果类内距离特别大，那么 Eq.7Eq.7 任然非负。在这种情况下，类内的变化可能会很大，但这并不有利于泛化误差的减少。</p>
+<p>　　为了解决这个问题，作者通过以下目标函数研究了负对和正对的上界（即 α+βα+β）：<br>$$<br>\alpha+d\left(\mathbf{h}, \mathbf{h}^{+}\right)&lt;d\left(\mathbf{h}, \mathbf{h}^{-}\right)&lt;d\left(\mathbf{h}, \mathbf{h}^{+}\right)+\alpha+\beta<br>$$</p>
+<p>　　其中：</p>
+<ul>
+<li><ul>
+<li>ββ is a non-negative tuning parameter；</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　由式 α+d(h,h+)&lt;d(h,h−)可知类内距离有界；</p>
+<p>　　由式 d(h,h−)&lt;d(h,h+)+α+β 可知类间距离有界；</p>
+<p>　　对所有负嵌入的损失加和后，提出的减少类内变化的上界损失定义如下：【理解这里的 minmin 请结合 Eq.11Eq.11 和 Eq.10Eq.10】<br>$$<br>\mathcal{L}<em>{U}&#x3D;-\frac{1}{k} \sum</em>{i&#x3D;1}^{k}\left{d\left(\mathbf{h}, \mathbf{h}^{+}\right)^{2}-d\left(\mathbf{h}, \mathbf{h}<em>{i}^{-}\right)^{2}+\alpha+\beta\right}</em>{-}<br>$$</p>
+<p>　　其中</p>
+<ul>
+<li><ul>
+<li>{⋅}−&#x3D;min{⋅,0}{⋅}−&#x3D;min{⋅,0}</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　注意到这里并没有考虑 neighbor information ，这是由于</p>
+<ul>
+<li><ul>
+<li>每种信息都得到了相似的结果；</li>
+<li>在实验中同时使用它们并不能显著提高模型的性能；</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p>　　最后，将上述损失整合，可以表示为：<br>$$<br>\mathcal{L}&#x3D;\omega_{1} \mathcal{L}<em>{S}+\omega</em>{2} \mathcal{L}<em>{N}+\mathcal{L}</em>{U}<br>$$</p>
+<h1 id="3-Experiments"><a href="#3-Experiments" class="headerlink" title="3 Experiments"></a>3 Experiments</h1><p><strong>数据集</strong></p>
+<p>　　8个基准数据集，包括3个引文网络数据集（即 Cora, Citeseer 和 Pubmed ）， 2个亚马逊销售数据集（即照片和计算机），3个大型数据集（即 Ogbn-arxiv、Ogbn-mag 和 Ogbn-products ）。</p>
+<p><strong>Baseline</strong></p>
+<p>　　1 种传统算法 DeepWalk， 2 种半监督学习算法（即 GCN 和 GAT），以及8种非监督学习算法( GAE，VGAE、DGI 、GRACE 、GMI 、MVGRL 和 GCA 、GIC 。</p>
+<p><strong>节点分类</strong></p>
+<p>　　Table 1 和 Table 2 总结了所有方法在 8 个实际图结构数据集上的分类精度和执行时间。</p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105110220-523805889.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105110220-523805889.png" alt="img"></a></p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105140880-564840702.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105140880-564840702.png" alt="img"></a></p>
+<p>　　结果分析：</p>
+<ul>
+<li><ul>
+<li>首先，SUGRL在分类精度方面优于所有自监督方法（如DGI、GMI、GRACE、MVGRL、GIC和GCA)。例如，作者的方法与最差的方法DGI和最好的比较方法MVGRL相比，平均分别提高了4.0%和1.9%。与采用标签信息的半监督方法（GCN 和 GAT）相比，SUGRL也取得了更好的性能。</li>
+<li>其次，作者的SUGRL的效率是最好的。在8个数据集上，与其他自监督方法相比，SUGRL 分别比最慢的比较方法 GMI 和最快的比较方法 GIC 平均快了 122.4 和 4.4 。</li>
+</ul>
+</li>
+</ul>
+<p>　　总之，作者的方法在几乎所有数据集上，在模型性能和执行时间方面，在节点分类方面都优于其他比较方法。原因可以总结如下。</p>
+<ul>
+<li><ul>
+<li>首先，SUGRL综合考虑结构信息和邻域信息，生成两种正嵌入及其损失函数，这可以将负嵌入推离锚嵌入更远(即实现较大的类间变异)。　　</li>
+<li>其次，SUGRL采用一个上界来保证正埋点和锚埋点之间的距离是有限的(即实现较小的类内变化)。　　</li>
+<li>最后，SUGRL去掉了数据增大和鉴别器的步骤，大大减少了训练时间。最后，SUGRL可用于输出低维高质量的嵌入，在保持模型有效性的同时减少训练时间。</li>
+</ul>
+</li>
+</ul>
+<p>　　</p>
+<p><strong>消融实验</strong></p>
+<p>　　UGRL考虑三种信息，即语义信息、结构信息和邻居信息，生成两种具有对应对比损失的正对(LSLS和LNLN)。为了验证框架中各成分的有效性，作者分别研究了结构信息、邻居信息和上界的有效性，以及对比损失中各成分的有效性。</p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328201827939-1423705469.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328201827939-1423705469.png" alt="img"></a></p>
+<p>　　类内和类间距离之比的有效性。考虑到类内和类间距离的大小不同，将比率归一化为 [0,1][0,1]，在 Figure 3 的数据集Photo上报告类内与类间距离的比率。首先，与本文方法相比，没有结构或邻居信息的方法通常输出更大的比率(即更小的类间变异)。二是无上界的方法，与作者的方法相比，还会输出更大的比率(即更大的类内变量)。这样就可以验证结构信息、邻居信息或上界信息的有效性。</p>
+<p>　　　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105331088-264617647.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220325105331088-264617647.png" alt="img"></a></p>
+<p><strong>Hyper-parameter analysis</strong></p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328202432615-1045808578.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328202432615-1045808578.png" alt="img"></a></p>
+<p><strong>Efficiency analysis</strong></p>
+<p>　　<a target="_blank" rel="noopener" href="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328202531791-1671489791.png"><img src="https://img2022.cnblogs.com/blog/1664108/202203/1664108-20220328202531791-1671489791.png" alt="img"></a></p>
+<h1 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4 Conclusion"></a>4 Conclusion</h1><p>　　在本文中，作者设计了一个简单的框架，即简单无监督图表示学习(SUGRL)，以实现有效和高效的对比学习。为了获得有效性，作者设计了两个三重组损失函数来探索结构信息和邻居信息之间的互补信息，以扩大类间的变化，以及一个上限损失来减少类内的变化。为了提高算法的效率，作者设计了一种去除GCN的生成锚点和负嵌入的方法，并从之前的图对比学习中去除数据增强和鉴别器。作者对各种真实世界的数据集进行了全面的实验，实验结果表明，作者的方法在准确性和可扩展性方面都优于目前最先进的方法。</p>
+<p><strong>知识点</strong></p>
+<blockquote>
+<p>　　　　补充：triplets loss 知识点</p>
+<p>　　　　公式为：</p>
+<p>　　　　　　L&#x3D;max(d(a,p)−d(a,n)+margin,0)L&#x3D;max(d(a,p)−d(a,n)+margin,0)</p>
+<p>　　　　优化目标：拉近 aa，pp 的距离，拉远 aa，nn 的距离</p>
+<p>　　- easy triplets : L&#x3D;0L&#x3D;0 即 d(a,p)+margin&lt;d(a,n)d(a,p)+margin&lt;d(a,n)，这种情况不需要优化，天然 aa，pp 的距离很近，aa，nn 的距离远；　　　<br>　　- hard triplets: d(a,n)&lt;d(a,p)d(a,n)&lt;d(a,p)，即 aa，pp 的距离远；　　<br>　　- semi-hard triplets : d(a,p)&lt;d(a,n)&lt;d(a,p)+margind(a,p)&lt;d(a,n)&lt;d(a,p)+margin，即 aa，nn 的距离靠的很近，但是有一个 marginmargin ；　</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">LQY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/22428.html">http://example.com/22428.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/favicon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/54971.html" title="Contrastive Multi-View Representation Learning on Graphs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Contrastive Multi-View Representation Learning on Graphs</div></div></a></div><div class="next-post pull-right"><a href="/21270.html" title="MGATS"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">MGATS</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LQY</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Rady3"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">1 Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Method"><span class="toc-number">2.</span> <span class="toc-text">2 Method</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Anchor-and-negative-embedding-generation"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Anchor and negative embedding generation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Positive-embedding-generation"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Positive embedding generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-Structural-information"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 Structural information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-Neighbor-information"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 Neighbor information</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Multiplet-loss"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Multiplet loss</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Experiments"><span class="toc-number">3.</span> <span class="toc-text">3 Experiments</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Conclusion"><span class="toc-number">4.</span> <span class="toc-text">4 Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/35647.html" title="skip-gram">skip-gram</a><time datetime="2023-05-16T08:08:09.000Z" title="Created 2023-05-16 16:08:09">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/12559.html" title="vascl">vascl</a><time datetime="2023-05-16T08:07:26.000Z" title="Created 2023-05-16 16:07:26">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/26110.html" title="Transform">Transform</a><time datetime="2023-05-16T08:07:15.000Z" title="Created 2023-05-16 16:07:15">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/55294.html" title="T5">T5</a><time datetime="2023-05-16T08:07:02.000Z" title="Created 2023-05-16 16:07:02">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/41822.html" title="simcse">simcse</a><time datetime="2023-05-16T08:06:50.000Z" title="Created 2023-05-16 16:06:50">2023-05-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LQY</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
